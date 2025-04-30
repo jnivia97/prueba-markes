@@ -49,8 +49,8 @@ public class PrestamoController {
         }
     }
 
-    @GetMapping("/allPerson")
-    public ResponseEntity<PrestamoResponse> getAllTypePerson(@RequestParam Integer idLoan){
+    @GetMapping("/prestamo")
+    public ResponseEntity<PrestamoResponse> getPrestamo(@RequestParam Integer idLoan){
         try{
 
            return ResponseEntity.ok()

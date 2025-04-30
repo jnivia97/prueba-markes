@@ -99,7 +99,7 @@ public class PrestamoServiceImpl implements PrestamoService {
 
             Prestamo prestamo = new Prestamo();
 
-            prestamo = prestamoRepository.getById(idLoan);
+            prestamo = prestamoRepository.getReferenceById(idLoan);
 
             return new PrestamoResponse(
 
