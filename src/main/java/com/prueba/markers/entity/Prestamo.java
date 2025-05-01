@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class Prestamo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer monto;
     private Integer plazo;

@@ -15,6 +15,10 @@ public class PrestamoResponse {
     private LocalDate fechaRespuesta;
     private String estado;
 
+    public PrestamoResponse (){
+
+    }
+
     public PrestamoResponse(Integer id, String respuesta, LocalDate fechaSolicitud, LocalDate fechaRespuesta, String estado) {
         this.id = id;
         this.respuesta = respuesta;

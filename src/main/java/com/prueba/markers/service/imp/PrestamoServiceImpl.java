@@ -10,6 +10,9 @@ import com.prueba.markers.service.PrestamoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 @Service
 public class PrestamoServiceImpl implements PrestamoService {
 
@@ -34,7 +37,7 @@ public class PrestamoServiceImpl implements PrestamoService {
 
             prestamo.setEstado("pendiente");
             prestamo.setFechaRespuesta(prestamoRequest.getFechaRespuesta());
-            prestamo.setFechaSolicitud(prestamoRequest.getFechaSolicitud());
+            prestamo.setFechaSolicitud(LocalDate.now());
             prestamo.setMonto(prestamoRequest.getMonto());
             prestamo.setPlazo(prestamoRequest.getPlazo());
             prestamo.setIdUsuario(usuario);
@@ -67,19 +70,25 @@ public class PrestamoServiceImpl implements PrestamoService {
     public PrestamoResponse updateLoan(PrestamoRequest prestamoRequest) {
         try{
 
-            Prestamo prestamo = prestamoRepository.updateStatusLoan(
-                    prestamoRequest.getId(),
-                    prestamoRequest.getIdAdmin(),
-                    prestamoRequest.getEstado(),
-                    prestamoRequest.getFechaRespuesta());
+            Usuario usuario = new Usuario();
+
+            Prestamo prestamo = prestamoRepository.getReferenceById(prestamoRequest.getId());
+
+            usuario.setId(prestamoRequest.getIdAdmin());
+
+            prestamo.setIdAdmin(usuario);
+            prestamo.setFechaRespuesta(LocalDate.now());
+            prestamo.setEstado(prestamoRequest.getEstado());
+
+            Prestamo prestamoUpdate = prestamoRepository.save(prestamo);
 
             return new PrestamoResponse(
 
-                    prestamo.getId(),
-                    "Estado actualizado",
-                    prestamo.getFechaSolicitud(),
-                    prestamo.getFechaRespuesta(),
-                    prestamo.getEstado()
+                    prestamoUpdate.getId(),
+                    "Estado Actualizado",
+                    prestamoUpdate.getFechaSolicitud(),
+                    prestamoUpdate.getFechaRespuesta(),
+                    prestamoUpdate.getEstado()
             );
 
         }catch (RuntimeException ex){

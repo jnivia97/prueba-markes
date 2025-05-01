@@ -15,8 +15,8 @@ public interface PrestamoRepository extends JpaRepository<Prestamo, Integer> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Prestamo p SET p.estado = :estado, p.fechaRespuesta = :fechaRespuesta WHERE p.id = :id AND p.idAdmin.id = :idAdmin")
-    Prestamo updateStatusLoan(@Param("id") Integer id,
+    @Query("UPDATE Prestamo p SET p.estado = :estado, p.fechaRespuesta = :fechaRespuesta, p.idAdmin = :idAdmin WHERE p.id = :id")
+    int updateStatusLoan(@Param("id") Integer id,
                          @Param("idAdmin") Integer idAdmin,
                          @Param("estado") String estado,
                          @Param("fechaRespuesta") LocalDate fechaRespuesta);
